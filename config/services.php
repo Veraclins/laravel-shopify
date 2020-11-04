@@ -25,6 +25,13 @@ return [
     ],
 
     'ses' => [
+        'key' => env('SHOPIFY_API_KEY'),
+        'secret' => env('SHOPIFY_API_SECRET'),
+        'password' => env('SHOPIFY_API_PASS'),
+        'url' => env('SHOPIFY_API_URL'),
+    ],
+
+    'shopify' => [
         'key' => env('AWS_ACCESS_KEY_ID'),
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
