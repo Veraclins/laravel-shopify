@@ -24,3 +24,15 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/orders', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/customers', function () {
     return view('customers');
 })->name('customers');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/products', function () {
+    return view('products');
+})->name('products');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/search', function () {
+    return view('search');
+})->name('search');
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/customers/add', function () {
+    return view('create-customer');
+})->name('create-customer');
