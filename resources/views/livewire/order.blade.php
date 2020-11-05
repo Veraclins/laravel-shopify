@@ -1,47 +1,66 @@
 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-    @foreach ($customers as $customer)
+    @foreach ($orders as $order)
     <div class="bg-white shadow overflow-hidden sm:rounded-lg">
         <div class="px-4 py-5 border-b border-gray-200 sm:px-6">
-            <h3 class="text-xl font-bold leading-6 font-medium text-gray-900 capitalize">
-                {{ $customer['first_name'] }} {{ $customer['last_name'] }}
+            <h3 class="text-xl font-bold leading-6 font-medium text-gray-900">
+                {{ $order['name'] }}
             </h3>
             <p class="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
-                Customer since:
-                <span class="font-bold">{{ date("F j, Y, g:i a", strtotime($customer['created_at'])) }}</span>
+                By
+                <span class="font-bold text-lg capitalize">
+                    {{ $order['customer']['first_name'] }} {{ $order['customer']['last_name'] }}
+                </span>
             </p>
         </div>
         <div>
             <dl>
                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm leading-5 font-medium text-gray-500">
-                        Email address
+                        Latest update
                     </dt>
                     <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{ $customer['email'] }}
+                        {{ date("F j, Y, g:i a", strtotime($order['updated_at'])) }}
                     </dd>
                 </div>
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm leading-5 font-medium text-gray-500">
-                        Phone
+                        Financial Status
                     </dt>
                     <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{ $customer['phone'] ?? 'nil' }}
+                        {{ $order['financial_status'] }}
                     </dd>
                 </div>
                 <div class="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm leading-5 font-medium text-gray-500">
-                        Last Order ID
+                        Line Items
                     </dt>
                     <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                        {{ $customer['last_order_id'] }}
+                        <ul>
+                            @foreach ($order['line_items'] as $item)
+                            <li>
+                                <div class="flex justify-between py-2">
+                                    <div class="font">{{ $item['name']}}</div>
+                                    <div class="font-bold pl-2">${{ $item['price']}}</div>
+                                </div>
+                            </li>
+                            @endforeach
+                        </ul>
                     </dd>
                 </div>
                 <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                     <dt class="text-sm leading-5 font-medium text-gray-500">
-                        Total Spent
+                        Sub Total
                     </dt>
                     <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
-                        ${{ $customer['total_spent'] }}
+                        ${{ $order['subtotal_price'] }}
+                    </dd>
+                </div>
+                <div class="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                    <dt class="text-sm leading-5 font-medium text-gray-500">
+                        Total Price
+                    </dt>
+                    <dd class="mt-1 text-sm leading-5 text-gray-900 sm:mt-0 sm:col-span-2">
+                        ${{ $order['total_price'] }}
                     </dd>
                 </div>
             </dl>

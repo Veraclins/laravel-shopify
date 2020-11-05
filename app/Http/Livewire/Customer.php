@@ -3,18 +3,15 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Http;
 
 class Customer extends Component
 {
-    public $response;
+    use ShopifyAPI;
 
-    public function fetch()
-    {
-        $response = Http::get('http://test.com');
-    }
     public function render()
     {
-        return view('livewire.customer');
+        return view('livewire.customer', [
+            'customers' => $this->getData('/customers.json?limit=10')['customers'],
+        ]);
     }
 }
